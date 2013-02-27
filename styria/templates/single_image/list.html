@@ -1,0 +1,24 @@
+{% extends "single_image/base.html" %}
+{% load i18n %}
+
+{% block title %}List of images{% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <table class="table table-striped data-table">
+            {% for image in images %}
+            <tr>
+                <td>
+                    <img src="{{ image.image_file }}" />
+                </td>
+                <td>
+                    <a href="{% url single_image image.pk %}">{{ image.description }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

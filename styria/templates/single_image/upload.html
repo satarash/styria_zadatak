@@ -1,0 +1,35 @@
+{% extends "single_image/base.html" %}
+{% load i18n %}
+
+{% block title %}Upload{% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        
+        {% if form.errors %}
+            <div class="alert alert-error">
+                <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                    <li>
+                        <strong>{{ field.label|capfirst }}:</strong> {{ field.errors|join:" " }}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <form class="" method="post">{% csrf_token %}
+            
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+        
+        <input type="submit" class="btn btn-primary" value="Save image">
+        </form>
+    </div>
+{% endblock %}

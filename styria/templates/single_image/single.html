@@ -1,0 +1,14 @@
+{% extends "single_image/base.html" %}
+{% load i18n %}
+
+{% block title %}Single image{% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {{ image.image_file }}
+        {{ image.description }}
+    </div>
+{% endblock %}
