@@ -11,4 +11,28 @@
         <img src="{{ MEDIA_URL }}{{ image.image_file }}" />
         {{ image.description }}
     </div>
+    
+    {% if form.errors %}
+        <div class="alert alert-error">
+            <ul>
+            {% for field in form %}
+                {% if field.errors %}
+                <li>
+                    <strong>{{ field.label|capfirst }}:</strong> {{ field.errors|join:" " }}
+                </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
+    <form class="" method="post" action="">{% csrf_token %}
+            
+        {% for field in form %}
+            {{ field }}
+        {% endfor %}
+    
+    <input type="submit" class="btn btn-primary" value="Send comment">
+    </form>
+    
 {% endblock %}
