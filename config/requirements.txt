@@ -2,5 +2,5 @@ django==1.4.5
 south
 django-extensions
 django-debug-toolbar
-#pil
+pil
 django-pagination-plus
