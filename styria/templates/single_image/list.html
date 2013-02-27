@@ -1,5 +1,6 @@
 {% extends "single_image/base.html" %}
 {% load i18n %}
+{% load paginationplus %}
 
 {% block title %}List of images{% endblock %}
 
@@ -21,4 +22,34 @@
             {% endfor %}
         </table>
     </div>
+    
+    {% if is_paginated %}
+        <div class="pagination pagination-centered">
+            <!-- pagination plus -->
+            <ul>
+                
+                {% if page_obj.has_previous %}
+                    <li><a href="{% url all_images %}{{ page_obj.previous_page_number }}" class="prev">&lsaquo;&lsaquo;</a></li>
+                {% else %}
+                    <li class="disabled"><a href="#">&lsaquo;&lsaquo;</a></li>
+                {% endif %}
+                
+                {% paginationplus page_obj all_images %}
+                    {% if paginationplus.is_filler %}
+                        <li class="disabled"><a href="#">&hellip;</a></li>
+                    {% else %}
+                        <li class="{% if paginationplus.is_current %}active{% endif %}">
+                          <a href="{{ paginationplus.url }}">{{ paginationplus.number }}</a>
+                        </li>
+                    {% endif %}
+                {% endpaginationplus %}
+                
+                {% if page_obj.has_next %}
+                    <li><a href="{% url all_images %}{{ page_obj.next_page_number }}" class="next">&rsaquo;&rsaquo;</a></li>
+                {% else %}
+                    <li class="disabled"><a href="#">&rsaquo;&rsaquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}

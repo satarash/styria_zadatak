@@ -114,7 +114,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # pagination plus settins
 PAGINATIONPLUS_MAX_DISTANCE = 1
-PAGINATION_PAGE_SIZE = 10
+PAGINATION_PAGE_SIZE = 5
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
