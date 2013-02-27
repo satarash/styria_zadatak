@@ -12,10 +12,10 @@
             {% for image in images %}
             <tr>
                 <td>
-                    <img src="{{ image.image_file }}" />
+                    <a href="{% url single_image image.pk %}"><img src="{{ MEDIA_URL }}{{ image.image_file }}" width="120px;"/></a>
                 </td>
                 <td>
-                    <a href="{% url single_image image.pk %}">{{ image.description }}</a>
+                    {{ image.description }}
                 </td>
             </tr>
             {% endfor %}

@@ -28,7 +28,5 @@ class UploadImageCreate(CreateView):
     template_name = 'single_image/upload.html'
     context_object_name = 'image'
     form_class = UploadImageForm
-    #success_url = reverse_lazy('single_image', kwargs={"pk":self.id})
+    success_url = reverse_lazy('all_images')
     
-    def get_success_url(self):
-        return reverse('single_image', kwargs={"pk":self.pk})
