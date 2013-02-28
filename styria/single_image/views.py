@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
+from django.db.models import Avg
 
 from models import Image, Rating
 from forms import UploadImageForm
@@ -22,6 +23,13 @@ class AllImagesListView(ListView):
     template_name = 'single_image/list.html'
     context_object_name = 'images'
     paginate_by = settings.PAGINATION_PAGE_SIZE
+    
+    def get_queryset(self):
+        if self.kwargs['sort'] == 'rating':
+            return Image.objects.annotate(average_rating=Avg('rating__rating')).order_by('-average_rating')
+        else:
+            return self.model.objects.all()
+        
 
 
 class UploadImageCreate(CreateView):

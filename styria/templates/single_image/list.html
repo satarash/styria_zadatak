@@ -5,20 +5,37 @@
 {% block title %}List of images{% endblock %}
 
 {% block extrahead %}
+    <style>
+        ul.thumbnails li.span2 p a.thumbnail img {
+            max-height: 100px;
+        }
+        
+    </style>
 {% endblock %}
 
 {% block content %}
+    <div class="row offset6">
+        <a href="{% url all_images_rating %}">sortirano po ocjeni</a> |
+        <a href="{% url all_images %}">sortirano po datumu</a>
+    </div>
     <div class="row">
         <div class="span7 offset3">
             <ul class="thumbnails">
                 {% for image in images %}
                 <li class="span2">
-                  <a href="{% url single_image image.pk %}" class="thumbnail">
-                    <img src="{{ MEDIA_URL }}{{ image.image_file }}" alt="{{ image.description }}">
-                    <p>{{ image.description }}</p>
-                  </a>
+                    <p><a href="{% url single_image image.pk %}" class="thumbnail"><img src="{{ MEDIA_URL }}{{ image.image_file }}" alt="{{ image.description }}">{{ image.description }}</a></p>
                 </li>
                 {% endfor %}
+            
+            
+                <!---->
+                <!--<li class="span3">-->
+                <!--{% for image in images %}-->
+                <!---->
+                <!--    <a href="{% url single_image image.pk %}" class="thumbnail"><img src="{{ MEDIA_URL }}{{ image.image_file }}" alt="{{ image.description }}" max-height="200px">{{ image.description }}</a>-->
+                <!---->
+                <!--{% endfor %}-->
+                <!--</li>-->
             </ul>
         </div>
         

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 
 
 class Image(models.Model):
@@ -7,11 +8,11 @@ class Image(models.Model):
     time_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-time_added',)
+        ordering = ('-time_added', )
 
     def __unicode__(self):
         return self.description
-
+    
 
 class Comment(models.Model):
     text = models.TextField()
