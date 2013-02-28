@@ -9,23 +9,23 @@
 
 {% block content %}
     <div class="row">
-        <table class="table table-striped data-table">
-            {% for image in images %}
-            <tr>
-                <td>
-                    <a href="{% url single_image image.pk %}"><img src="{{ MEDIA_URL }}{{ image.image_file }}" height="120px;"/></a>
-                </td>
-                <td>
-                    {{ image.description }}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <div class="span7 offset3">
+            <ul class="thumbnails">
+                {% for image in images %}
+                <li class="span2">
+                  <a href="{% url single_image image.pk %}" class="thumbnail">
+                    <img src="{{ MEDIA_URL }}{{ image.image_file }}" alt="{{ image.description }}">
+                    <p>{{ image.description }}</p>
+                  </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
     </div>
     
     {% if is_paginated %}
         <div class="pagination pagination-centered">
-            <!-- pagination plus -->
             <ul>
                 
                 {% if page_obj.has_previous %}

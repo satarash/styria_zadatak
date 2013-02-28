@@ -30,17 +30,16 @@ ALLOWED_HOSTS = []
 
 TIME_ZONE = 'Europe/Zagreb'
 USE_TZ = True
-#LANGUAGE_CODE = 'hr-hr'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'hr-hr'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-MEDIA_URL = 'http://127.0.0.1:8000/media/'
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
-STATIC_URL = 'http://127.0.0.1:8000/static/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(MEDIA_ROOT, 'static')
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
@@ -52,6 +51,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'dajaxice.finders.DajaxiceFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -61,7 +61,17 @@ SECRET_KEY = '6(k-(_&amp;jl10vd9kxzqvsp^_54ck8ctx73bzjn=wmn+0u3gt%(z'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,9 +102,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'debug_toolbar',
+    'django_extensions',
     'paginationplus',
     'south',
     'styria.single_image',
+    'dajaxice',
+    'dajax',
 )
 
 INTERNAL_IPS = ('127.0.0.1')
@@ -115,6 +128,8 @@ DEBUG_TOOLBAR_CONFIG = {
 # pagination plus settins
 PAGINATIONPLUS_MAX_DISTANCE = 1
 PAGINATION_PAGE_SIZE = 5
+
+DAJAXICE_MEDIA_PREFIX = "dajaxice"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

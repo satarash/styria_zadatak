@@ -4,3 +4,5 @@ django-extensions
 django-debug-toolbar
 pil
 django-pagination-plus
+dajaxice
+dajax

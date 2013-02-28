@@ -1,38 +1,83 @@
 {% extends "single_image/base.html" %}
 {% load i18n %}
+{% load dajaxice_templatetags %}
 
 {% block title %}Single image{% endblock %}
 
 {% block extrahead %}
+    
+    <script src="{{ STATIC_URL }}js/jquery.dajax.core.js" type="text/javascript" ></script>
+    {% dajaxice_js_import %}
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            Dajaxice.styria.single_image.load_single(Dajax.process, {'image':'{{ image.pk }}'})
+        });
+        function insert_comment(){
+            Dajaxice.styria.single_image.insert_comment(Dajax.process, {'text':$('#id_text').val(),'image':'{{ image.pk }}'});
+        };
+        function insert_rating(){
+            if ($('input[name=rating]:checked').length > 0) {
+                Dajaxice.styria.single_image.insert_rating(Dajax.process, {'rating':$('input[name=rating]:checked').val(),'image':'{{ image.pk }}'});
+            };
+            $('input[name=rating]').removeAttr("checked");
+            $('#rating_success').text('Hvala na vašoj ocjeni!');
+            //$('#rating_success').class('hidden');
+            $('#rating_success').fadeIn();
+            $('#rating_success').fadeOut(4000);
+        };
+    </script>
+
+
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <img src="{{ MEDIA_URL }}{{ image.image_file }}" />
-        {{ image.description }}
+        <div class="span4">
+            <img src="{{ MEDIA_URL }}{{ image.image_file }}" />
+            {{ image.description }}
+        </div>
+        
+        <div class="span3 offset1">
+            <h5>Ocijenite sliku</h5>
+            <form id="rating_form">
+                {% for rating in rating_choices %}
+                    <input type="radio" name="rating" class="rating" value="{{ rating.0 }}" onclick="insert_rating();">{{ rating.1 }}<br />
+                {% endfor %}
+            </form>
+            
+            <h5>Posljednje ocijene</h5>
+            <div id="ratings"></div>
+            
+            <h5>Prosječna ocjena</h5>
+            <span id="average_rating"></span>
+            
+            <div id="rating_success"></div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="span5">
+            <form class="" method="post" action="">{% csrf_token %}
+                <textarea id="id_text" rows="4" cols="60" name="text"></textarea>
+                <input type="button" class="btn" value="Komentiraj" onclick="insert_comment();">
+            </form>
+        </div>
+        
+        
+    </div>
+    <div class="row">
+        <div id="comments"></div>
     </div>
     
-    {% if form.errors %}
-        <div class="alert alert-error">
-            <ul>
-            {% for field in form %}
-                {% if field.errors %}
-                <li>
-                    <strong>{{ field.label|capfirst }}:</strong> {{ field.errors|join:" " }}
-                </li>
-                {% endif %}
-            {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+
     
-    <form class="" method="post" action="">{% csrf_token %}
-            
-        {% for field in form %}
-            {{ field }}
-        {% endfor %}
     
-    <input type="submit" class="btn btn-primary" value="Send comment">
-    </form>
+    
+    <div>
+        
+    </div>
+    
+    
     
 {% endblock %}

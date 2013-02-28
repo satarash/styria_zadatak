@@ -18,6 +18,12 @@ class Comment(models.Model):
     image = models.ForeignKey(Image)
     time_commented = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-time_commented',)
+
+    def __unicode__(self):
+        return self.text
+
 
 class Rating(models.Model):
     RATINGS = [(i, i) for i in range(6)]
@@ -28,3 +34,6 @@ class Rating(models.Model):
 
     class Meta:
         ordering = ('-time_rated',)
+
+    def __unicode__(self):
+        return str(self.rating)

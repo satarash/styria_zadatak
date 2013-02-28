@@ -8,28 +8,29 @@
 
 {% block content %}
     <div class="row">
-        
-        {% if form.errors %}
-            <div class="alert alert-error">
-                <ul>
-                {% for field in form %}
-                    {% if field.errors %}
-                    <li>
-                        <strong>{{ field.label|capfirst }}:</strong> {{ field.errors|join:" " }}
-                    </li>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-        
-        <form class="" method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+        <div class="span7 offset4">
+            {% if form.errors %}
+                <div class="alert alert-error">
+                    <ul>
+                    {% for field in form %}
+                        {% if field.errors %}
+                        <li>
+                            <strong>{{ field.label|capfirst }}:</strong> {{ field.errors|join:" " }}
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-        
-        <input type="submit" class="btn btn-primary" value="Save image">
-        </form>
+            <form class="" method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+                
+                {% for field in form %}
+                    {{ field }}<br />
+                {% endfor %}
+            
+                <input type="submit" class="btn btn-primary" value="Pohrani sliku">
+            </form>
+        </div>
     </div>
 {% endblock %}
