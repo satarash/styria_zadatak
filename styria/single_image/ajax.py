@@ -14,9 +14,7 @@ def insert_comment(request, text, image):
         return dajax.json()
     else:
         dajax = Dajax()
-        #new_comment = Comment(text=text, image=image)
-        new_comment = Comment(text=text, image=Image.objects.get(pk=image))
-        new_comment.save()
+        Comment.objects.create(text=text, image=Image.objects.get(pk=image))
         dajax.assign('#id_text', 'value', '')
         comments = Comment.objects.filter(image=image)
         render_comments = render_to_string('single_image/comments.html', {'comments': comments, })
@@ -41,13 +39,11 @@ def load_single(request, image):
 @dajaxice_register
 def insert_rating(request, rating, image):
     dajax = Dajax()
-    new_rating = Rating(rating=rating, image=Image.objects.get(pk=int(image)))
-    new_rating.save()
+    Rating.objects.create(rating=rating, image=Image.objects.get(pk=int(image)))
     average_rating = Rating.objects.filter(image=image).aggregate(Avg('rating'))
     dajax.assign('#average_rating', 'value', average_rating)
     ratings = Rating.objects.filter(image=image)[:5]
     render_ratings = render_to_string('single_image/ratings.html', {'ratings': ratings, })
     dajax.assign('#ratings', 'innerHTML', render_ratings)
-    average_rating = Rating.objects.filter(image=image).aggregate(Avg('rating'))
     dajax.assign('#average_rating', 'innerHTML', round(average_rating['rating__avg'], 2))
     return dajax.json()
