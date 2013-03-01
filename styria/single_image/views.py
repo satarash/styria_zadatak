@@ -26,7 +26,7 @@ class AllImagesListView(ListView):
 
     def get_queryset(self):
         if self.kwargs['sort'] == 'rating':
-            return Image.objects.annotate(average_rating=Avg('rating__rating')).order_by('-average_rating')
+            return self.model.objects.annotate(average_rating=Avg('rating__rating')).order_by('-average_rating')
         else:
             return self.model.objects.all()
 
@@ -37,3 +37,9 @@ class UploadImageCreate(CreateView):
     context_object_name = 'image'
     form_class = UploadImageForm
     success_url = reverse_lazy('all_images')
+
+
+single_image = SingleImageDetailView.as_view()
+all_images = AllImagesListView.as_view()
+all_images_rating = AllImagesListView.as_view()
+upload_image = UploadImageCreate.as_view()

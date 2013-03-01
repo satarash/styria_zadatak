@@ -36,4 +36,4 @@ class Rating(models.Model):
         ordering = ('-time_rated',)
 
     def __unicode__(self):
-        return str(self.rating)
+        return unicode(self.rating)
