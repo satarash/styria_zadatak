@@ -25,6 +25,7 @@
                 <li class="span2">
                     <p><a href="{% url single_image image.pk %}" class="thumbnail"><img src="{{ MEDIA_URL }}{{ image.image_file }}" alt="{{ image.description }}">{{ image.description }}</a></p>
                 </li>
+                {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
                 {% endfor %}
             </ul>
         </div>
