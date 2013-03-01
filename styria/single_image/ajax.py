@@ -39,7 +39,7 @@ def load_single(request, image):
 @dajaxice_register
 def insert_rating(request, rating, image):
     dajax = Dajax()
-    Rating.objects.create(rating=rating, image=Image.objects.get(pk=int(image)))
+    Rating.objects.create(rating=rating, image=Image.objects.get(pk=image))
     average_rating = Rating.objects.filter(image=image).aggregate(Avg('rating'))
     dajax.assign('#average_rating', 'value', average_rating)
     ratings = Rating.objects.filter(image=image)[:5]
