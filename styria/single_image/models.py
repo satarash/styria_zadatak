@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Avg
 
 
 class Image(models.Model):
@@ -12,7 +11,7 @@ class Image(models.Model):
 
     def __unicode__(self):
         return self.description
-    
+
 
 class Comment(models.Model):
     text = models.TextField()

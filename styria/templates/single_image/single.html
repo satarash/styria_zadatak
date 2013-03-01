@@ -22,9 +22,8 @@
             };
             $('input[name=rating]').removeAttr("checked");
             $('#rating_success').text('Hvala na vašoj ocjeni!');
-            //$('#rating_success').class('hidden');
             $('#rating_success').fadeIn();
-            $('#rating_success').fadeOut(4000);
+            $('#rating_success').fadeOut(5000);
         };
     </script>
 
@@ -47,7 +46,7 @@
                 {% endfor %}
             </form>
             
-            <h5>Posljednje ocijene</h5>
+            <h5>Posljednje ocjene</h5>
             <div id="ratings"></div>
             
             <h5>Prosječna ocjena</h5>
@@ -67,18 +66,8 @@
         
         
     </div>
+    
     <div class="row">
         <div id="comments"></div>
     </div>
-    
-
-    
-    
-    
-    <div>
-        
-    </div>
-    
-    
-    
 {% endblock %}
